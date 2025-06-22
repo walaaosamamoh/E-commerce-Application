@@ -45,50 +45,21 @@
 </template>
 
 <script>
-import http from '@/utils/http'; // Adjust the import path as necessary
-// @ is an alias to /src
+import { useShopStore } from '@/stores/shop';
+import { mapState, mapActions } from 'pinia';
+
 export default {
   name: 'HomeView',
-  data() {
-    return {
-      categories: [],
-      products: [],
-      comments: [],
-    };
+  computed: {
+    ...mapState(useShopStore, [
+      'categories',
+      'products',
+      'getProductsByCategory',
+      'getCommentsByProduct',
+    ]),
   },
   methods: {
-    getProductsByCategory(categoryId) {
-      return this.products.filter(p => p.categoryId === categoryId);
-    },
-    getCommentsByProduct(productId) {
-      return this.comments.filter(c => c.productId === productId);
-    },
-    async fetchData() {
-      const [catRes, prodRes] = await Promise.all([
-        http.get('categories'),
-        http.get('products')
-      ]);
-      console.log('prodRes.data:', prodRes.data);
-      const categories = catRes.data.categories || [];
-      const products = prodRes.data && prodRes.data.products ? prodRes.data.products : [];
-      if (!Array.isArray(products)) {
-        console.warn('Expected products to be an array, got:', products);
-        this.categories = categories;
-        this.products = [];
-        this.comments = [];
-        return;
-      }
-      // Fetch comments for all products
-      let allComments = [];
-      for (const product of products) {
-        const res = await http.get(`products/${product.id}/comments`);
-        const comments = res.data.comments.map(c => ({ ...c, productId: product.id }));
-        allComments = allComments.concat(comments);
-      }
-      this.categories = categories;
-      this.products = products;
-      this.comments = allComments;
-    },
+    ...mapActions(useShopStore, ['fetchData']),
   },
   mounted() {
     this.fetchData();

@@ -8,10 +8,11 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import './assets/main.css';
-//import pinia from './stores/pinia';
+import { createPinia } from 'pinia';
 
 const app = createApp(App);
+const pinia = createPinia();
 
+app.use(pinia);
 app.use(router);
-//app.use(pinia);
 app.mount('#app');

@@ -4,6 +4,7 @@ import { seeds } from './mirage/seeds';
 import { routes } from './mirage/routes';
 
 export function makeServer() {
+  console.log('MirageJS server starting...');
   return createServer({
     models,
     seeds,

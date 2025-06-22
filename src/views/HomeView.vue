@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import http from '@/utils/http'; // Adjust the import path as necessary
 // @ is an alias to /src
 export default {
   name: 'HomeView',
@@ -65,16 +65,23 @@ export default {
     },
     async fetchData() {
       const [catRes, prodRes] = await Promise.all([
-        axios.get('/api/categories'),
-        axios.get('/api/products')
+        http.get('categories'),
+        http.get('products')
       ]);
-      console.log(prodRes.data)
-      const categories = catRes.data.categories;
-      const products = prodRes.data.products;
+      console.log('prodRes.data:', prodRes.data);
+      const categories = catRes.data.categories || [];
+      const products = prodRes.data && prodRes.data.products ? prodRes.data.products : [];
+      if (!Array.isArray(products)) {
+        console.warn('Expected products to be an array, got:', products);
+        this.categories = categories;
+        this.products = [];
+        this.comments = [];
+        return;
+      }
       // Fetch comments for all products
       let allComments = [];
       for (const product of products) {
-        const res = await axios.get(`/api/products/${product.id}/comments`);
+        const res = await http.get(`products/${product.id}/comments`);
         const comments = res.data.comments.map(c => ({ ...c, productId: product.id }));
         allComments = allComments.concat(comments);
       }

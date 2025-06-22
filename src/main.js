@@ -1,15 +1,16 @@
+console.log('MODE:', import.meta.env.MODE);
+import { makeServer } from './miragejs-server';
+if (import.meta.env.MODE === 'development') {
+  makeServer();
+}
+
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import './assets/main.css';
 //import pinia from './stores/pinia';
-import { makeServer } from './miragejs-server';
 
 const app = createApp(App);
-
-if (import.meta.env.NODE_ENV === 'development') {
-  makeServer();
-}
 
 app.use(router);
 //app.use(pinia);

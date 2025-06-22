@@ -1,14 +1,16 @@
-import './assets/main.css'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import './assets/main.css';
+//import pinia from './stores/pinia';
+import { makeServer } from './miragejs-server';
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+const app = createApp(App);
 
-import App from './App.vue'
-import router from './router'
+if (import.meta.env.NODE_ENV === 'development') {
+  makeServer();
+}
 
-const app = createApp(App)
-
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
+app.use(router);
+//app.use(pinia);
+app.mount('#app');

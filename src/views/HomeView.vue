@@ -26,6 +26,7 @@
               v-for="product in filteredProducts"
               :key="product.id"
               class="p-4 bg-white rounded shadow hover:shadow-lg transition"
+              @click="goToProduct(product.id)"
             >
               <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover mb-4" />
               <div class="font-semibold">{{ product.name }}</div>
@@ -83,6 +84,10 @@ export default {
   },
   methods: {
     ...mapActions(useShopStore, ['fetchData']),
+
+    goToProduct(productId) {
+      this.$router.push({ name: 'product', params: { id: productId } })
+    },
   },
   mounted() {
     this.fetchData()

@@ -11,6 +11,7 @@ export const useShopStore = defineStore('shop', {
   }),
   getters: {
     getProductsByCategory: (state) => (categoryId) => {
+      if (!categoryId) return state.products;
       return state.products.filter(p => p.categoryId === categoryId);
     },
     getCommentsByProduct: (state) => (productId) => {
@@ -36,6 +37,13 @@ export const useShopStore = defineStore('shop', {
           this.loading = false;
           return;
         }
+        // Fetch all products for each category and add categoryId
+        let allProducts= [];
+        for (const category of categories){
+          const res = await http.get(`categories/${category.id}/products`);
+          const products = res.data.products.map(p => ({ ...p, categoryId: category.id }));
+          allProducts = allProducts.concat(products);
+        }
         let allComments = [];
         for (const product of products) {
           const res = await http.get(`products/${product.id}/comments`);
@@ -43,7 +51,7 @@ export const useShopStore = defineStore('shop', {
           allComments = allComments.concat(comments);
         }
         this.categories = categories;
-        this.products = products;
+        this.products = allProducts;
         this.comments = allComments;
       } catch (e) {
         this.error = e.message || 'Failed to fetch data';

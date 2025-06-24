@@ -1,68 +1,91 @@
 <template>
-  <div class="home">
-    <h1 class="text-3xl font-bold text-center mt-10">Welcome to the Home Page</h1>
-    <p class="text-center mt-4">This is the home page of our application.</p>
-    <div class="mt-8 max-w-3xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">Categories</h2>
-      <ul>
-        <li v-for="category in categories" :key="category.id" class="mb-2">
-         <div class="flex items-center">
-           <span class="font-bold">{{ category.name }}</span>
-         </div>
-          <ul class="ml-6 mt-2">
-            <li v-for="product in getProductsByCategory(category.id)" :key="product.id" class="mb-4 p-4 border rounded">
-              <img :src="product.image" :alt="product.name" class="w-32 h-32 object-cover mb-2" />
+  <div>
+    <button v-if="!loading"
+    @click="((activeComponent = 'AllProducts'), (categoryId = null))"
+    class="px-4 py-2 mr-2 text-blue-500 font-bold border-b-2 border-transparent hover:border-b-blue-500"
+    :class="{'border-b-blue-500':categoryId === null}">
+      All
+    </button>
+    <!-- category tabs -->
+    <button
+      v-for="category in categories"
+      :key="category.id"
+      @click="((activeComponent = category.name + 'Category'), (categoryId = category.id))"
+      class="px-4 py-2 mr-2 text-blue-500 font-bold border-b-2 border-transparent hover:border-b-blue-500"
+      :class="{'border-b-blue-500': categoryId === category.id}">
+      {{ category.name }}
+    </button>
+  </div>
+  <div>
+    <!-- dynamic component rendering -->
+    <keep-alive v-if="!loading">
+      <component :is="activeComponent">
+        <div>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-4">
+            <li
+              v-for="product in filteredProducts"
+              :key="product.id"
+              class="p-4 bg-white rounded shadow hover:shadow-lg transition"
+            >
+              <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover mb-4" />
               <div class="font-semibold">{{ product.name }}</div>
-              <div class="text-gray-600">${{ product.price }}</div>
+              <div class="text-blue-600">${{ product.price }}</div>
               <div class="mt-2">
                 <strong>Comments:</strong>
-                <ul class="ml-4 list-disc">
-                  <li v-for="comment in getCommentsByProduct(product.id)" :key="comment.id">{{ comment.text }}</li>
+                <ul class="ml-4 list-disc text-gray-600 text-sm">
+                  <li v-for="comment in getCommentsByProduct(product.id)" :key="comment.id">
+                    {{ comment.text }}
+                  </li>
                 </ul>
               </div>
             </li>
           </ul>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <h2 class="text-2xl font-semibold mt-10">Products</h2>
-      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <li v-for="product in products" :key="product.id" class="p-4 border rounded shadow">
-          <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover mb-2" />
-          <div class="font-semibold">{{ product.name }}</div>
-          <div class="text-gray-600">${{ product.price }}</div>
-          <div class="mt-2">
-            <strong>Comments:</strong>
-            <ul class="ml-4 list-disc">
-              <li v-for="comment in getCommentsByProduct(product.id)" :key="comment.id">{{ comment.text }}</li>
-            </ul>
-          </div>
-        </li>
-      </ul>
+        </div>
+      </component>
+    </keep-alive>
+    <!-- loading -->
+    <div v-else class="flex items-center justify-center min-h-screen bg-white">
+      <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
     </div>
   </div>
 </template>
 
 <script>
-import { useShopStore } from '@/stores/shop';
-import { mapState, mapActions } from 'pinia';
+import { useShopStore } from '@/stores/shop'
+import { mapState, mapActions } from 'pinia'
+import MenCategory from '@/components/MenCategory.vue'
+import WomenCategory from '@/components/WomenCategory.vue'
+import KidsCategory from '@/components/KidsCategory.vue'
+import AllProducts from '@/components/AllProducts.vue'
 
 export default {
   name: 'HomeView',
+  components: { MenCategory, WomenCategory, KidsCategory ,AllProducts},
+  data() {
+    return {
+      categoryId: null, // To store the selected category ID
+      activeComponent: 'AllProducts', // Default component
+    }
+  },
   computed: {
     ...mapState(useShopStore, [
       'categories',
       'products',
+      'loading',
       'getProductsByCategory',
       'getCommentsByProduct',
     ]),
+
+    // get category products
+    filteredProducts() {
+      return this.getProductsByCategory(this.categoryId)
+    },
   },
   methods: {
     ...mapActions(useShopStore, ['fetchData']),
   },
   mounted() {
-    this.fetchData();
+    this.fetchData()
   },
-};
+}
 </script>

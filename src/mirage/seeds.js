@@ -35,10 +35,10 @@ const categories = [
   server.create('category', { id: 1, name: 'Men' }),
   server.create('category', { id: 2, name: 'Women' }),
   server.create('category', { id: 3, name: 'Kids' }),
-  server.create('category', { id: 4, name: 'Perfume' }),
-  server.create('category', { id: 5, name: 'Shirts' }),
-  server.create('category', { id: 6, name: 'T-Shirts' }),
-  server.create('category', { id: 7, name: 'Shoes' }),
+  // server.create('category', { id: 4, name: 'Perfume' }),
+  // server.create('category', { id: 5, name: 'Shirts' }),
+  // server.create('category', { id: 6, name: 'T-Shirts' }),
+  // server.create('category', { id: 7, name: 'Shoes' }),
 ];
 
   // Products
@@ -54,7 +54,7 @@ const categories = [
   }
 
   // Comments
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 20; i++) {
     server.create('comment', {
       id: String(i),
       text: faker.lorem.sentence(),

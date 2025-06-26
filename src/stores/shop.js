@@ -75,6 +75,18 @@ export const useShopStore = defineStore('shop', {
       } finally {
         this.loading = false;
       }
+    },
+    async createComment(newComment){
+      this.error=null
+      try{
+        const res = await http.post('/comments', newComment)
+        const commentWithId = {...res.data.comment, productId: newComment.productId}
+        this.comments.push(commentWithId)
+        console.log(this.comments)
+        return res.data;
+      }catch(e){
+        this.error = e.message || 'Failed to add comment';
+      }
     }
   },
 });

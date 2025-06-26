@@ -1,10 +1,11 @@
 <template>
-  <div v-if="currentProduct && !loading" class="max-w-md mx-auto bg-white overflow-hidden md:max-w-2xl my-8">
+  <div v-if="currentProduct && !loading" class="mx-2">
     <button @click="goBack"
-    class="shadow mb-4 cursor-pointer flex p-2 rounded bg-blue-500">
+    class="m-4 shadow mb-4 cursor-pointer flex p-2 rounded bg-blue-500">
       <span class="material-icons text-white">arrow_back</span>
     </button>
-    <img
+    <div class="max-w-md mx-auto bg-white rounded overflow-hidden md:max-w-2xl my-8 px-2">
+      <img
       :src="currentProduct.image"
       :alt="currentProduct.name"
       class="w-full h-80 object-cover mb-8 mx-auto"
@@ -12,20 +13,24 @@
     <p class="font-semibold text-2xl mb-2">{{ currentProduct.name }}</p>
     <p class="text-lg mb-2">${{ currentProduct.price }}</p>
     <p >{{ currentProduct.description }}</p>
+    </div>
     <!-- comments section -->
-    <div class="flex flex-col md:flex-row justify-around items-center my-8">
+    <div class="flex flex-col md:flex-row gap-4 justify-around items-center my-8">
+      <!-- add comment -->
       <div>
-        <textarea class="border border-gray-500 w-70 h-20 mt-5 p-2 focus:outline-none" placeholder="Write a comment"></textarea>
-        <button class="block border bg-blue-700 rounded text-white px-3 py-1 mx-auto cursor-pointer">submit</button>
+        <textarea v-model="newComment"
+        class="border border-gray-400 w-md h-md mt-5 p-2 focus:outline-none" placeholder="Write a comment"></textarea>
+        <button @click="addComment" class="block border bg-blue-700 rounded text-white px-3 py-1 mx-auto cursor-pointer">submit</button>
       </div>
-      <hr class="md:w-[1px] w-full h-[1px] md:h-[120px] border-none bg-gray-400 mt-2"/>
-      <div>
+      <!-- comments -->
+      <div class="md:border-l md:border-l-gray-300 pl-4">
       <h3 class="mt-2 md:mt-0 mb-2 text-gray-800 text-lg"><strong>Comments:</strong></h3>
-      <ul class="ml-4 list-disc text-gray-600 ">
-        <li v-for="comment in getCommentsByProduct(currentProduct.id)" :key="comment.id">
+      <div class=" grid grid-cols-1 gap-4 text-gray-600 ">
+        <div v-for="comment in getCommentsByProduct(currentProduct.id)" :key="comment.id"
+        class="p-2 border border-gray-400 rounded-lg shadow">
           {{ comment.text }}
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
     </div>
   </div>
@@ -39,26 +44,47 @@
 import { useShopStore } from '@/stores/shop'
 import { mapState , mapActions} from 'pinia'
 export default {
+  data(){
+    return{
+      newComment: '',
+      productId: this.$route.params.id
+    }
+  },
   computed: {
-    ...mapState(useShopStore, ['currentProduct','getProductById','getCommentsByProduct','loading']),
+    ...mapState(useShopStore, ['comments','currentProduct','getProductById','getCommentsByProduct','loading']),
   },
   methods:{
-    ...mapActions(useShopStore, ['fetchProduct']),
+    ...mapActions(useShopStore, ['fetchProduct','fetchData','createComment']),
 
     goBack(){
       this.$router.back()
+    },
+
+    async addComment(){
+      if(!this.newComment.trim()) return;
+
+        try{
+          await this.createComment({
+           id: this.comments.length + 1,
+           text: this.newComment,
+           productId: this.productId, 
+         })
+         this.newComment = ''
+        await this.getCommentsByProduct(this.productId)
+        }catch(err){
+
+        }
+      
     }
   },
   created(){
-    this.fetchProduct(this.$route.params.id)
-    this.getCommentsByProduct(this.$route.params.id)
+    this.fetchProduct(this.productId);
+    this.fetchData()
   },
-  watch: {
-    '$route.params.id':{
-      handler(newId){
-        this.getCommentsByProduct(newId)
-      }
-    }
-  }
+//   watch:{
+//     comments(newVal){
+//       this.getCommentsByProduct(newVal.productId)
+//     }
+//  }
 }
 </script>

@@ -8,6 +8,7 @@ export const useShopStore = defineStore('shop', {
     comments: [],
     loading: false,
     error: null,
+    currentProduct: null,
   }),
   getters: {
     getProductsByCategory: (state) => (categoryId) => {
@@ -16,6 +17,9 @@ export const useShopStore = defineStore('shop', {
     },
     getCommentsByProduct: (state) => (productId) => {
       return state.comments.filter(c => c.productId === productId);
+    },
+    getProductById: (state) => {
+      return state.currentProduct;
     },
   },
   actions: {
@@ -59,5 +63,18 @@ export const useShopStore = defineStore('shop', {
         this.loading = false;
       }
     },
+    async fetchProduct(productId){
+      this.loading=true
+      this.error=null;
+      try{
+        const res = await http.get(`products/${productId}`) 
+        const product = res.data.product
+        this.currentProduct = product
+      }catch (e) {
+        this.error = e.message || 'Failed to fetch data';
+      } finally {
+        this.loading = false;
+      }
+    }
   },
 });

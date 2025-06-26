@@ -48,6 +48,7 @@ const categories = [
       id: String(i),
       name: faker.commerce.productName(),
       price: faker.commerce.price({ min: 10, max: 1000, dec: 2 }),
+      description: faker.lorem.paragraph(2),
       image: faker.image.urlPicsumPhotos({ width: 200, height: 200 }),
       category: categories[i % categories.length],
     }));

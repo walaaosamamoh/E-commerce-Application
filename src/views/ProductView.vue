@@ -72,7 +72,8 @@ export default {
          this.newComment = ''
         await this.getCommentsByProduct(this.productId)
         }catch(err){
-
+          console.error('Error adding comment:', err);
+          alert('Failed to add comment. Please try again later.');
         }
       
     }
@@ -81,10 +82,5 @@ export default {
     this.fetchProduct(this.productId);
     this.fetchData()
   },
-//   watch:{
-//     comments(newVal){
-//       this.getCommentsByProduct(newVal.productId)
-//     }
-//  }
 }
 </script>

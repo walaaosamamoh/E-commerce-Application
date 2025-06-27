@@ -2,7 +2,7 @@
   <div>
     <button v-if="!loading"
     @click="((activeComponent = 'AllProducts'), (categoryId = null))"
-    class="px-4 py-2 mr-2 text-blue-500 font-bold border-b-2 border-transparent hover:border-b-blue-500"
+    class="px-4 py-2 ml-5 text-blue-500 font-bold border-b-2 border-transparent hover:border-b-blue-500 transition"
     :class="{'border-b-blue-500':categoryId === null}">
       All
     </button>
@@ -11,7 +11,7 @@
       v-for="category in categories"
       :key="category.id"
       @click="((activeComponent = category.name + 'Category'), (categoryId = category.id))"
-      class="px-4 py-2 mr-2 text-blue-500 font-bold border-b-2 border-transparent hover:border-b-blue-500"
+      class="px-4 py-2 text-blue-500 font-bold border-b-2 border-transparent hover:border-b-blue-500 transition"
       :class="{'border-b-blue-500': categoryId === category.id}">
       {{ category.name }}
     </button>

@@ -1,9 +1,16 @@
 <template>
   <div>
-    <router-view :key="$route.fullPath" />
+    <AppLayout />
   </div>
 </template>
 
 <script>
-export default {}
+import AppLayout from './components/layouts/AppLayout.vue';
+
+export default {
+  name: 'App',
+  components: {
+    AppLayout
+  }
+}
 </script>

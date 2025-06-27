@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="min-h-screen flex flex-col">
       <header class="bg-blue-500 shadow text-white p-4 flex gap-2 justify-center items-center">
         <img class="w-12 h-12 ml-4 rounded-full" 
         src="/src/assets/images/BlueCart_logo.jpg" alt="">

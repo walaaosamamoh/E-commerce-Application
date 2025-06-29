@@ -12,7 +12,7 @@
     <div class="lg:w-[65%] lg:m-auto overflow-x-auto">
       <!-- Add Product Button -->
       <div class="flex justify-end mb-4">
-      <button 
+      <button @click="this.$router.push({name: 'add-product'})"
       class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition">
         Add New Product
       </button>

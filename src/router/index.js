@@ -5,6 +5,7 @@ import LoginView from '../views/LoginView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import ManageCategories from '../views/ManageCategories.vue'
 import ManageProducts from '../views/ManageProducts.vue'
+import AddProduct from '../views/AddProduct.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +44,12 @@ const router = createRouter({
       path: '/manage-products',
       name: 'manage-products',
       component: ManageProducts,
+      meta: { layout: 'admin' },
+    },
+    {
+      path: '/add-product',
+      name: 'add-product',
+      component: AddProduct,
       meta: { layout: 'admin' },
     },
   ],

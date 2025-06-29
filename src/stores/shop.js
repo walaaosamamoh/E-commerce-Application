@@ -21,6 +21,9 @@ export const useShopStore = defineStore('shop', {
     getProductById: (state) => {
       return state.currentProduct;
     },
+    sortedProducts: (state)=>{
+      return [...state.products].sort((a,b)=>a.id - b.id)
+    }
   },
   actions: {
     async fetchData() {

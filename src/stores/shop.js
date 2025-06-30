@@ -90,6 +90,16 @@ export const useShopStore = defineStore('shop', {
       }catch(e){
         this.error = e.message || 'Failed to add comment';
       }
+    },
+    async createProduct(newProduct){
+      this.error = null;
+      try {
+        const res = await http.post('/products', newProduct);
+        const productWithId = { ...res.data.product, categoryId: newProduct.categoryId };
+        this.products.push(productWithId);
+      }catch (e) {
+        this.error = e.message || 'Failed to add product';
+      }
     }
   },
 });

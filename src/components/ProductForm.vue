@@ -1,7 +1,8 @@
 <template>
   <VeeForm
-    @submit="addProduct"
+    @submit="$emit('submit',$event )"
     :validation-schema="schema"
+    :initial-values="initialValues"
     class="flex flex-col gap-2 max-w-sm mx-auto px-5 pb-5"
   >
     <div>
@@ -17,6 +18,7 @@
       <Field
         type="number"
         name="price"
+        v-model="name"
         placeholder="Price"
         class="border border-gray-400 outline-none w-full p-2 mb-2 rounded shadow"
       />
@@ -38,7 +40,7 @@
         class="border border-gray-400 outline-none w-full p-2 mb-2 rounded shadow"
       >
         <option value="">Select Category</option>
-        <option v-for="category in shopStore.categories" :key="category.id" :value="category.id">
+        <option v-for="category in categories" :key="category.id" :value="category.id">
           {{ category.name }}
         </option>
       </Field>
@@ -56,7 +58,7 @@
     <button
       class="py-2 px-4 block m-auto text-white bg-blue-500 w-fit rounded-lg shadow-md hover:bg-blue-600 active:scale-95 transition"
     >
-      Add New Product
+      {{ submitText }}
     </button>
   </VeeForm>
 </template>
@@ -64,8 +66,6 @@
 <script>
 import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate'
 import * as yup from 'yup'
-import { useShopStore } from '@/stores/shop'
-import { useToast } from 'vue-toastification'
 
 export default {
   components: {
@@ -73,9 +73,29 @@ export default {
     Field,
     ErrorMessage,
   },
+  props: {
+    initialValues: {
+      type: Object,
+      default: () => ({
+        name: '',
+        price: '',
+        description: '',
+        category: '',
+        image: '',
+      }),
+    },
+    categories:{
+      type: Array,
+      required: true
+    },
+    submitText: {
+      type: String,
+      default: 'Submit',
+    },
+  },
+  
   data() {
     return {
-      shopStore: useShopStore(),
       schema: yup.object({
         name: yup.string().required('Name is required'),
         price: yup.number().required('Price is required').positive('Price must be positive'),
@@ -83,42 +103,8 @@ export default {
         category: yup.string().required('Category is required'),
         image: yup.string().url().required('Image is required'),
       }),
-      toast: useToast(),
     }
   },
-  methods: {
-    /**
-     * Adds a new product to the store.
-     * @param {Object} values - The form values containing product details.
-     */
-    addProduct(values, { resetForm }) {
-      const newProduct = {
-        description: values.description,
-        id: this.shopStore.products.length + 1,
-        image: values.image,
-        name: values.name,
-        price: values.price,
-        categoryId: parseInt(values.category),
-      }
-
-      this.shopStore.createProduct(newProduct)
-      // show success or failed message
-      if (this.shopStore.error) {
-        this.toast.error(this.shopStore.error, {
-          timeout: 2000,
-          position: 'top-right',
-        })
-      }
-      this.toast.success('Product added successfully', {
-        timeout: 2000,
-        position: 'top-right',
-      })
-      // reset form values
-      resetForm()
-    },
-  },
-  mounted() {
-    this.shopStore.fetchData()
-  },
+  emits: ['submit'],   
 }
 </script>

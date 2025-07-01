@@ -70,7 +70,7 @@ export const useShopStore = defineStore('shop', {
       this.loading=true
       this.error=null;
       try{
-        const res = await http.get(`products/${productId}`) 
+        const res = await http.get(`products/${productId}`)
         const product = res.data.product
         this.currentProduct = product
       }catch (e) {
@@ -99,6 +99,17 @@ export const useShopStore = defineStore('shop', {
         this.products.push(productWithId);
       }catch (e) {
         this.error = e.message || 'Failed to add product';
+      }
+    },
+    async deleteProduct(productId){
+      this.error= null;
+      try{
+        await http.delete(`/products/${productId}`);
+        this.products = this.products.filter(p=> p.id !== productId);
+        return true;
+      }catch(e){
+        this.error = e.message || 'Failed to delete product';
+        return false;
       }
     }
   },

@@ -17,7 +17,7 @@
     <!-- comments section -->
     <div class="flex flex-col md:flex-row gap-4 justify-around items-center my-8">
       <!-- add comment -->
-      <div>
+      <div v-if="user.roleID==='user'">
         <textarea v-model="newComment"
         class="border border-gray-400 w-md h-md mt-5 p-2 focus:outline-none" placeholder="Write a comment"></textarea>
         <button @click="addComment" class="block border bg-blue-700 rounded text-white px-3 py-1 mx-auto cursor-pointer">submit</button>
@@ -47,7 +47,8 @@ export default {
   data(){
     return{
       newComment: '',
-      productId: this.$route.params.id
+      productId: this.$route.params.id,
+      user: JSON.parse(localStorage.getItem('user'))
     }
   },
   computed: {

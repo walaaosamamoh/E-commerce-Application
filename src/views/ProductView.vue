@@ -18,17 +18,17 @@
     <!-- comments section -->
     <div class="flex flex-col md:flex-row gap-4 justify-around items-center my-8">
       <!-- add comment -->
-      <div v-if="user.roleID==='user'">
-        <textarea v-model="newComment"
-        class="border border-gray-400 w-md h-md mt-5 p-2 focus:outline-none" placeholder="Write a comment"></textarea>
-        <button @click="addComment" class="block border bg-blue-700 rounded text-white px-3 py-1 mx-auto cursor-pointer">submit</button>
+      <div v-if="user.roleID==='user'" class="w-full md:w-1/2 p-4 border border-gray-300 rounded-lg shadow">
+        <textarea  v-model="newComment"
+        class="border border-gray-400 w-full h-md mt-5 p-2 focus:outline-none" placeholder="Write a comment"></textarea>
+        <button @click="addComment" class="block border bg-blue-700 rounded text-white px-3 py-1 mx-auto cursor-pointer w-full">submit</button>
       </div>
       <!-- comments -->
       <div class="md:border-l md:border-l-gray-300 pl-4">
       <h3 class="mt-2 md:mt-0 mb-2 text-gray-800 text-lg"><strong>Comments:</strong></h3>
       <div class=" grid grid-cols-1 gap-4 text-gray-600 ">
         <div v-for="comment in getCommentsByProduct(currentProduct.id)" :key="comment.id"
-        class="p-2 border border-gray-400 rounded-lg shadow">
+        class="p-2 border border-gray-400 rounded-lg shadow text-wrap">
           {{ comment.text }}
         </div>
       </div>

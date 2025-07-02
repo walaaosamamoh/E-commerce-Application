@@ -1,4 +1,5 @@
 <template>
+  <!-- i've added min-h-screen  -->
   <div class="min-h-screen flex flex-col">
     <header class="text-white shadow bg-blue-500 p-5 flex gap-2 justify-between items-center">
       <div class="flex items-center gap-2">
@@ -13,10 +14,10 @@
         logout
       </span>
     </header>
-    <main>
+    <main class="flex-1">
       <router-view :key="$route.fullPath" />
     </main>
-    <footer class="bg-gray-800 text-white p-4 mt-6 text-center">
+    <footer class="bg-gray-800 text-white p-8 text-center mt-6 ">
       <p>&copy; 2025 BlueCart. All rights reserved.</p>
     </footer>
   </div>

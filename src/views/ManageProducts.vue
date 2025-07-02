@@ -3,10 +3,10 @@
     <!-- header -->
     <div class="flex items-center mx-4 mb-12 ">
       <button @click="this.$router.back"
-    class="shadow cursor-pointer flex p-2 rounded bg-gray-700">
+      class="shadow cursor-pointer flex p-2 rounded bg-blue-500">
       <span class="material-icons text-white">arrow_back</span>
     </button>
-    <h1 class="flex-1 text-2xl font-bold text-center">Products</h1>
+    <h1 class="flex-1 text-2xl font-bold text-center absolute left-1/2 transform translate-x-[-50%]">Products</h1>
     </div>
      <!-- loading -->
     <div v-if="shopStore.loading " class="flex items-center justify-center min-h-screen bg-white">

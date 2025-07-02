@@ -1,10 +1,12 @@
 <template>
   <div class="p-5">
-    <button @click="this.$router.back"
-    class="m-4 shadow mb-4 cursor-pointer flex p-2 rounded bg-gray-700">
+    <div class="flex items-center mx-4 mb-12">
+      <button @click="this.$router.back"
+      class="md:m-4 shadow cursor-pointer flex p-2 rounded bg-blue-500">
       <span class="material-icons text-white">arrow_back</span>
-    </button>
-    <h1 class="text-2xl font-bold my-4 text-center">Categoris</h1>
+      </button>
+      <h1 class="flex-1 text-2xl font-bold text-center absolute left-1/2 transform translate-x-[-50%]">Categories</h1>
+    </div>
     <!-- loading -->
     <div v-if="shopStore.loading" class="flex items-center justify-center min-h-screen bg-white">
       <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>

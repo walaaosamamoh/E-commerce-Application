@@ -111,6 +111,18 @@ export const useShopStore = defineStore('shop', {
         this.error = e.message || 'Failed to delete product';
         return false;
       }
+    },
+    async updateProduct(product){
+      this.error = null;
+      try{
+        const res = await http.put(`/products/${product.id}`, product)
+        const index = this.products.findIndex(p => p.id === product.id)
+        if(index !== -1){
+          this.products[index] = res.data
+        }
+      }catch(e){
+        this.error = e.message || 'Failed to update product';
+      }
     }
   },
 });

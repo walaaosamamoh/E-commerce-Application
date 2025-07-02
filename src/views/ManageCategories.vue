@@ -11,7 +11,7 @@
     <div v-if="shopStore.loading" class="flex items-center justify-center min-h-screen bg-white">
       <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
     </div>
-    <div>
+    <div v-else>
       <table class="w-full lg:w-1/2 lg:m-auto border-collapse">
         <thead>
           <tr>

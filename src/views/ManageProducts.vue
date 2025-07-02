@@ -13,7 +13,7 @@
       <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
     </div>
     <!-- main -->
-    <div class="lg:w-[65%] lg:m-auto overflow-x-auto">
+    <div v-else class="lg:w-[65%] lg:m-auto overflow-x-auto">
       <!-- Add Product Button -->
       <div class="flex justify-end mb-4">
       <button @click="this.$router.push({name: 'add-product'})"
@@ -51,7 +51,7 @@
                 <button @click="this.$router.push({name:'product', params:{id:product.id}})"
                 class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition">
                 View
-                </button>  
+                </button>
                 <button @click="handleDelete(product.id)"
                 class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition">
                 Delete

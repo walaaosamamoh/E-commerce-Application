@@ -27,7 +27,7 @@
       <Field
         type="url"
         name="image"
-        placeholder="Image"
+        placeholder="Image URL"
         class="border border-gray-400 outline-none w-full p-2 mb-2 rounded shadow"
       />
       <ErrorMessage name="image" class="text-red-500 text-sm" />

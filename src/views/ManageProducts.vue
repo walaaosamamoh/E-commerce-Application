@@ -40,7 +40,7 @@
             </td>
             <td class="border border-[#ddd] p-2 text-sm text-center">
               <div class=" flex flex-wrap gap-2 justify-center items-center">
-                <button 
+                <button  @click="this.$router.push({name:'edit-product', params:{id:product.id}})"
                 class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition">
                 Edit
                 </button>

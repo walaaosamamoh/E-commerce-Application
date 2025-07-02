@@ -5,7 +5,7 @@
     :initial-values="initialValues"
     class="flex flex-col gap-2 max-w-sm mx-auto px-5 pb-5"
   >
-    <div>
+    <div >
       <Field
         type="text"
         name="name"
@@ -18,7 +18,6 @@
       <Field
         type="number"
         name="price"
-        v-model="name"
         placeholder="Price"
         class="border border-gray-400 outline-none w-full p-2 mb-2 rounded shadow"
       />

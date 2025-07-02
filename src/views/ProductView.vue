@@ -4,6 +4,7 @@
     class="m-4 shadow mb-4 cursor-pointer flex p-2 rounded bg-blue-500">
       <span class="material-icons text-white">arrow_back</span>
     </button>
+    <!-- product details -->
     <div class="max-w-md mx-auto bg-white rounded overflow-hidden md:max-w-2xl my-8 px-2">
       <img
       :src="currentProduct.image"
@@ -66,12 +67,13 @@ export default {
 
         try{
           await this.createComment({
-           id: this.comments.length + 1,
-           text: this.newComment,
-           productId: this.productId, 
-         })
-         this.newComment = ''
-        await this.getCommentsByProduct(this.productId)
+          id: this.comments.length + 1,
+          text: this.newComment,
+          productId: this.productId, 
+          userId: this.user.id
+          })
+          this.newComment = ''
+          this.getCommentsByProduct(this.productId)
         }catch(err){
           console.error('Error adding comment:', err);
           alert('Failed to add comment. Please try again later.');

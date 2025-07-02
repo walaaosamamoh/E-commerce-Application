@@ -5,6 +5,10 @@
       <span class="material-icons text-white">arrow_back</span>
     </button>
     <h1 class="text-2xl font-bold my-4 text-center">Categoris</h1>
+    <!-- loading -->
+    <div v-if="shopStore.loading" class="flex items-center justify-center min-h-screen bg-white">
+      <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
     <div>
       <table class="w-full lg:w-1/2 lg:m-auto border-collapse">
         <thead>

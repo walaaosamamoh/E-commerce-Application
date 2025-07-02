@@ -59,13 +59,13 @@ import { useToast } from 'vue-toastification'
           image: product.image
         }
         // show form after the data be ready
-        this.formReady = true 
+        this.formReady = true
       },
       async handleUpdate(values) {
         await this.shopStore.updateProduct({
           id: this.$route.params.id,
           name: values.name,
-          price: values.price,
+          price: Number(values.price),
           description: values.description,
           image: values.image,
           categoryId: parseInt(values.category)
@@ -80,7 +80,8 @@ import { useToast } from 'vue-toastification'
         this.toast.success('Product updated successfully', {
           timeout: 2000,
           position: 'top-right',
-        })
+        }),
+        this.$refs.form.resetForm()
     }
   },
     async mounted() {

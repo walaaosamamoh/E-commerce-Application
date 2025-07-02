@@ -8,6 +8,10 @@
     </button>
     <h1 class="flex-1 text-2xl font-bold text-center">Products</h1>
     </div>
+     <!-- loading -->
+    <div v-if="shopStore.loading " class="flex items-center justify-center min-h-screen bg-white">
+      <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
     <!-- main -->
     <div class="lg:w-[65%] lg:m-auto overflow-x-auto">
       <!-- Add Product Button -->

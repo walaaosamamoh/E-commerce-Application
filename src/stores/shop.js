@@ -83,7 +83,7 @@ export const useShopStore = defineStore('shop', {
       this.error=null
       try{
         const res = await http.post('/comments', newComment)
-        const commentWithId = {...res.data.comment, productId: newComment.productId}
+        const commentWithId = {...res.data.comment, productId: newComment.productId, userId: newComment.userId};
         this.comments.push(commentWithId)
         console.log(this.comments)
         return res.data;

@@ -42,7 +42,7 @@
                 <strong>Comments:</strong>
                 <ul class="ml-4 list-disc text-gray-600 text-sm">
                   <li
-                    v-for="comment in getCommentsByProduct(product.id)"
+                    v-for="comment in getCommentsByProduct(product.id).slice(0,5)"
                     :key="comment.id"
                   >
                     {{ comment.text }}

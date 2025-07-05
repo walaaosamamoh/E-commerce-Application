@@ -21,45 +21,84 @@ const router = createRouter({
       path: '/home',
       name: 'home',
       component: HomeView,
-      meta: { layout: 'default' },
+      meta: { 
+        layout: 'default',
+        requiresAuth: true
+      },
     },
     {
       path: '/product/:id',
       name: 'product',
       component: ProductView,
-      meta: { layout: 'default' },
+      meta: { 
+        layout: 'default',
+        requiresAuth: true
+      },
     },
     {
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView,
-      meta: { layout: 'admin' },
+      meta: {
+        layout: 'admin',
+        requiresAuth: true,
+        requiresRole: 'admin',
+      },
     },
     {
       path: '/manage-categories',
       name: 'manage-categories',
       component: ManageCategories,
-      meta: { layout: 'admin' },
+      meta: {
+        layout: 'admin',
+        requiresAuth: true,
+        requiresRole: 'admin',
+      },
     },
     {
       path: '/manage-products',
       name: 'manage-products',
       component: ManageProducts,
-      meta: { layout: 'admin' },
+      meta: {
+        layout: 'admin',
+        requiresAuth: true,
+        requiresRole: 'admin',
+      },
     },
     {
       path: '/add-product',
       name: 'add-product',
       component: AddProduct,
-      meta: { layout: 'admin' },
+      meta: {
+        layout: 'admin',
+        requiresAuth: true,
+        requiresRole: 'admin',
+      },
     },
     {
       path: '/edit-product/:id',
       name: 'edit-product',
       component: EditProduct,
-      meta: { layout: 'admin' },
+      meta: {
+        layout: 'admin',
+        requiresAuth: true,
+        requiresRole: 'admin'
+      },
     },
   ],
+})
+
+const user = JSON.parse(localStorage.getItem('user'));
+const isLoggedIn = !!user;
+const userRole = user?.roleID;
+router.beforeEach((to, from, next)=>{
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    next({ name: 'login' });
+  } else if (to.meta.requiresRole && to.meta.requiresRole !== userRole) {
+    next({ name: 'home' });
+  } else {
+    next();
+  }
 })
 
 export default router

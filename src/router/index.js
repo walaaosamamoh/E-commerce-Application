@@ -88,10 +88,12 @@ const router = createRouter({
   ],
 })
 
-const user = JSON.parse(localStorage.getItem('user'));
-const isLoggedIn = !!user;
-const userRole = user?.roleID;
+
 router.beforeEach((to, from, next)=>{
+  const user = JSON.parse(localStorage.getItem('user'));
+  const isLoggedIn = !!user;
+  const userRole = user?.roleID;
+
   if (to.meta.requiresAuth && !isLoggedIn) {
     next({ name: 'login' });
   } else if (to.meta.requiresRole && to.meta.requiresRole !== userRole) {

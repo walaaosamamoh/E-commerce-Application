@@ -7,6 +7,7 @@ import ManageCategories from '../views/ManageCategories.vue'
 import ManageProducts from '../views/ManageProducts.vue'
 import AddProduct from '../views/AddProduct.vue'
 import EditProduct from '../views/EditProduct.vue'
+import ChatView from '../views/ChatView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -83,6 +84,15 @@ const router = createRouter({
         layout: 'admin',
         requiresAuth: true,
         requiresRole: 'admin'
+      },
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: ChatView,
+      meta: {
+        layout: 'default',
+        requiresAuth: false
       },
     },
   ],

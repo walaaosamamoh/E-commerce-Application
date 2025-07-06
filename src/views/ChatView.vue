@@ -23,36 +23,56 @@ export default {
       input: '',
       messages: [],
       user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).name : 'Guest',
-    };
+      wsConnected: false,
+    }
   },
   mounted() {
-    this.ws = new WebSocket('ws://localhost:3000');
-    this.ws.onmessage = (event) => {
-      try {
-        const msg = JSON.parse(event.data);
-        this.messages.push(msg);
-        console.log('Received message:', msg);
-      } catch (e) {
-        // Optionally handle non-JSON messages or ignore
-        console.warn('Received non-JSON message:', event.data);
-      }
-      this.$nextTick(() => {
-        this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight;
-      });
-    };
+    this.connectWebSocket()
   },
   methods: {
+    connectWebSocket() {
+      this.ws = new WebSocket('ws://localhost:3000')
+      this.ws.onopen = () => {
+        this.wsConnected = true
+        console.log('WebSocket connected')
+      }
+      this.ws.onclose = () => {
+        this.wsConnected = false
+        console.warn('WebSocket closed. Reconnecting in 1s...')
+        setTimeout(this.connectWebSocket, 1000)
+      }
+      this.ws.onerror = (err) => {
+        console.error('WebSocket error:', err)
+        this.ws.close()
+      }
+      this.ws.onmessage = (event) => {
+        try {
+          const msg = JSON.parse(event.data)
+          this.messages.push(msg)
+          console.log('Received message:', msg)
+        } catch (e) {
+          console.warn('Received non-JSON message:', e.data)
+        }
+        this.$nextTick(() => {
+          this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight
+        })
+      }
+    },
     sendMessage() {
-      if (!this.input.trim()) return;
-      const msg = { user: this.user, text: this.input };
-      this.ws.send(JSON.stringify(msg));
-      this.input = '';
+      if (!this.input.trim()) return
+      const msg = { user: this.user, text: this.input }
+      if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+        this.ws.send(JSON.stringify(msg))
+      } else {
+        console.warn('WebSocket is not open. Message not sent.')
+      }
+      this.input = ''
     },
   },
   beforeUnmount() {
-    if (this.ws) this.ws.close();
+    if (this.ws) this.ws.close()
   },
-};
+}
 </script>
 
 <style scoped>

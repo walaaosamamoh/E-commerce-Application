@@ -7,12 +7,19 @@ import ManageCategories from '../views/ManageCategories.vue'
 import ManageProducts from '../views/ManageProducts.vue'
 import AddProduct from '../views/AddProduct.vue'
 import EditProduct from '../views/EditProduct.vue'
+import SignUpView from '../views/SignUpView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '',
+      path: '/',
+      name: 'signUp',
+      component: SignUpView,
+      meta: { layout: 'auth' },
+    },
+    {
+      path: '/login',
       name: 'login',
       component: LoginView,
       meta: { layout: 'auth' },

@@ -1,17 +1,18 @@
 <template>
   <div>
     <VeeForm @submit="handleLogin" :validation-schema="schema">
-          <h2 class="text-2xl font-bold mb-4">Welcome back! Please log in</h2>
+          <h2 class="text-2xl font-bold mb-4">{{$t('login.title')}}</h2>
           <div>
-            <Field name="email" type="email" placeholder="Email" class="border border-gray-400 outline-none w-full p-2 mb-2 rounded"/>
+            <Field name="email" type="email" :placeholder="$t('login.email')" class="form-input border border-gray-400 outline-none w-full p-2 mb-2 rounded"/>
             <ErrorMessage name="email" class="text-red-500 text-sm"/>
           </div>
           <div>
-            <Field name="password" type="password" placeholder="Password" 
-            class="border border-gray-400 outline-none w-full p-2 mb-2 rounded"/>
+            <Field name="password" type="password"  
+            :placeholder="$t('login.password')" 
+            class="form-input border border-gray-400 outline-none w-full p-2 mb-2 rounded"/>
             <ErrorMessage name="password" class="text-red-500 text-sm" />
           </div>
-          <button type="submit" class="mt-2 w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Login</button>
+          <button type="submit" class="mt-2 w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">{{$t('login.button')}}</button>
     </VeeForm>
   </div>
 </template>
@@ -21,7 +22,7 @@ import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 import {useAuthStore} from '@/stores/auth';
 import {mapState, mapActions} from 'pinia';
-import {useToast} from 'vue-toastification'
+import {useToast} from 'vue-toastification';
 
   export default {
     name: 'AdminLayout',
@@ -54,6 +55,7 @@ import {useToast} from 'vue-toastification'
       ...mapActions(useAuthStore, [
         'fetchUsers'
       ]),
+
       handleLogin(values, {resetForm}){
         // Validate form values
         this.user = this.getUserByEmail(values.email)
@@ -90,8 +92,9 @@ import {useToast} from 'vue-toastification'
         }
       }
     },
-    
+
     mounted(){
+      document.dir = this.$i18n.locale === 'ar' ? 'rtl' : 'ltr';
       this.fetchUsers()
     }
   }

@@ -11,7 +11,8 @@ import './assets/main.css';
 import { createPinia } from 'pinia';
 import Toast from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
-import {configure} from 'vee-validate'
+import {configure} from 'vee-validate';
+import i18n from './i18n';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -26,4 +27,5 @@ configure({
 app.use(Toast, options)
 app.use(pinia);
 app.use(router);
+app.use(i18n);
 app.mount('#app');

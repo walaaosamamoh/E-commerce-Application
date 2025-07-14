@@ -4,5 +4,49 @@
     "button": "تسجيل الدخول",
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور"
+  },
+    "categories":{
+      "categories": "الفئات",
+      "All" : "الكل",
+      "Men": "رجال",
+      "Women": "نساء",
+      "Kids": "اطفال",
+      "title":{
+        "all" : "جميع المنتجات",
+        "men": "منتجات الرجال",
+        "women": "منتجات النساء",
+        "kids": "منتجات الاطفال"
+      }
+    },
+  "products":{
+    "products": "المنتجات",
+    "comments": "التعليقات",
+    "submit": "إرسال",
+    "addComment": "إضافة تعليق"
+  },
+  "admin":{
+    "manage-categories": "ادارة الفئات",
+    "manage-products": "ادارة المنتجات",
+    "add-new-product": "إضافة منتج جديد",
+    "id": "الرقم",
+    "name": "الاسم",
+    "price": "السعر",
+    "category": "الفئة",
+    "actions": "العمليات",
+    "img": "الصورة",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "view": "عرض",
+    "add": "إضافة",
+    "url-img": "رابط الصورة",
+    "description": "الوصف",
+    "select-category": "اختر فئة",
+    "update-product": "تحديث المنتج"
+  },
+  "buttons":{
+    "backButton": "arrow_forward"
+  },
+  "footer":{
+    "rights": "جميع الحقوق محفوظة"
   }
 }

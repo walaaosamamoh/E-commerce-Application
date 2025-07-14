@@ -2,11 +2,11 @@
   <div class="p-5">
     <button @click="this.$router.back"
     class="ml-4 shadow mb-4 cursor-pointer flex p-2 rounded bg-blue-500">
-      <span class="material-icons text-white">arrow_back</span>
+      <span class="material-icons text-white">{{ $t('buttons.backButton') }}</span>
     </button>
   </div>
   <NewProductForm :categories="shopStore.categories"
-  @submit="handleAddProduct" submit-text="Add New Product"/>
+  @submit="handleAddProduct" :submit-text="$t('admin.add-new-product')"/>
 </template>
 
 <script>

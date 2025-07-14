@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-2xl text-center font-semibold my-10">Women Products</h2>
+    <h2 class="text-2xl text-center font-semibold my-10">{{$t('categories.title.women')}}</h2>
     <slot></slot>
   </div>
 </template>

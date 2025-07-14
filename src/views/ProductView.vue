@@ -2,7 +2,7 @@
   <div v-if="currentProduct && !loading" class="mx-2">
     <button @click="goBack"
     class="m-4 shadow mb-4 cursor-pointer flex p-2 rounded bg-blue-500">
-      <span class="material-icons text-white">arrow_back</span>
+      <span class="material-icons text-white">{{$t('buttons.backButton')}}</span>
     </button>
     <!-- product details -->
     <div class="max-w-md mx-auto bg-white rounded overflow-hidden md:max-w-2xl my-8 px-2">
@@ -20,12 +20,12 @@
       <!-- add comment -->
       <div v-if="user.roleID==='user'" class="w-full md:w-1/2 p-4 border border-gray-300 rounded-lg shadow">
         <textarea  v-model="newComment"
-        class="border border-gray-400 w-full h-md mt-5 p-2 focus:outline-none" placeholder="Write a comment"></textarea>
-        <button @click="addComment" class="block border bg-blue-700 rounded text-white px-3 py-1 mx-auto cursor-pointer w-full">submit</button>
+        class="border border-gray-400 w-full h-md mt-5 p-2 focus:outline-none" :placeholder=" $t('products.addComment')"></textarea>
+        <button @click="addComment" class="block border bg-blue-700 rounded text-white px-3 py-1 mx-auto cursor-pointer w-full">{{ $t('products.submit') }}</button>
       </div>
       <!-- comments -->
       <div class="md:border-l md:border-l-gray-300 pl-4">
-      <h3 class="mt-2 md:mt-0 mb-2 text-gray-800 text-lg"><strong>Comments:</strong></h3>
+      <h3 class="mt-2 md:mt-0 mb-2 text-gray-800 text-lg"><strong>{{ $t('products.comments') }}</strong></h3>
       <div class=" grid grid-cols-1 gap-4 text-gray-600 ">
         <div v-for="comment in getCommentsByProduct(currentProduct.id)" :key="comment.id"
         class="p-2 border border-gray-400 rounded-lg shadow text-wrap">

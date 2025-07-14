@@ -10,15 +10,27 @@
         />
         <span class="text-2xl font-bold">BlueCart</span>
       </div>
-      <span class="material-icons cursor-pointer hover:text-red-500 transition" @click="logOut">
-        logout
-      </span>
+
+      <div class="flex items-center gap-4">
+        <!-- dropdown language menue -->
+        <select
+          v-model="$i18n.locale"
+          class="bg-blue-500 text-white rounded py-1 px-2 cursor-pointer outline-none"
+          @change="document.dir = $i18n.locale === 'ar' ? 'rtl' : 'ltr'"
+        >
+          <option value="en">English</option>
+          <option value="ar">العربية</option>
+        </select>
+        <span class="material-icons cursor-pointer hover:text-red-500 transition" @click="logOut">
+          logout
+        </span>
+      </div>
     </header>
     <main class="flex-1">
       <router-view :key="$route.fullPath" />
     </main>
     <footer class="bg-gray-800 text-white p-8 text-center mt-6 ">
-      <p>&copy; 2025 BlueCart. All rights reserved.</p>
+      <p>&copy; 2025 BlueCart. {{$t('footer.rights')}}.</p>
     </footer>
   </div>
 </template>

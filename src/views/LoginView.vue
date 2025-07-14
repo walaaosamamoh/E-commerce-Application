@@ -94,7 +94,6 @@ import {useToast} from 'vue-toastification';
     },
 
     mounted(){
-      document.dir = this.$i18n.locale === 'ar' ? 'rtl' : 'ltr';
       this.fetchUsers()
     }
   }

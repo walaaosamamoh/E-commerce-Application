@@ -1,8 +1,52 @@
 {
-  "login":{
+  "login": {
     "title": "Welcome back! Please log in",
     "button": "Login",
     "email": "Email",
     "password": "Password"
+  },
+  "categories": {
+    "categories": "Categories",
+    "All": "All",
+    "Men": "Men",
+    "Women": "Women",
+    "Kids": "Kids",
+    "title": {
+      "all": "All Products",
+      "men": "Men Products",
+      "women": "Women Products",
+      "kids": "Kids Products"
+    }
+  },
+  "products": {
+    "products": "Products",
+    "comments": "Comments",
+    "submit": "Submit",
+    "addComment": "Add Comment"
+  },
+  "admin":{
+    "manage-categories": "Manage Categories",
+    "manage-products": "Manage Products",
+    "add-new-product": "Add New Product",
+    "id": "ID",
+    "name": "Name",
+    "price": "Price",
+    "category": "Category",
+    "actions": "Actions",
+    "img": "Image",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "add": "Add",
+    "url-img": "Image URL",
+    "description": "Description",
+    "select-category": "Select Category",
+    "update-product": "Update Product"
+  },
+  "buttons":{
+    "backButton": "arrow_back"
+  },
+  "footer":{
+    "rights": "All rights reserved"
   }
 }

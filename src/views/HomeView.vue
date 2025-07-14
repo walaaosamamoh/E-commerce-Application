@@ -3,10 +3,10 @@
     <button
       v-if="!loading"
       @click="(activeComponent = 'AllProducts'), (categoryId = null)"
-      class="px-4 py-2 ml-5 text-blue-500 font-bold border-b-2 border-transparent hover:border-b-blue-500 transition"
+      class="px-4 py-2 text-blue-500 font-bold border-b-2 border-transparent hover:border-b-blue-500 transition"
       :class="{ 'border-b-blue-500': categoryId === null }"
     >
-      All
+      {{$t('categories.All')}}
     </button>
     <!-- category tabs -->
     <button
@@ -16,7 +16,7 @@
       class="px-4 py-2 text-blue-500 font-bold border-b-2 border-transparent hover:border-b-blue-500 transition"
       :class="{ 'border-b-blue-500': categoryId === category.id }"
     >
-      {{ category.name }}
+      {{ $t(`categories.${category.name}`) }}
     </button>
   </div>
   <div>
@@ -39,8 +39,8 @@
               <div class="font-semibold">{{ product.name }}</div>
               <div class="text-blue-600">${{ product.price }}</div>
               <div class="mt-2">
-                <strong>Comments:</strong>
-                <ul class="ml-4 list-disc text-gray-600 text-sm">
+                <strong>{{$t('products.comments')}}</strong>
+                <ul class="mx-4 list-disc text-gray-600 text-sm">
                   <li
                     v-for="comment in getCommentsByProduct(product.id).slice(0,5)"
                     :key="comment.id"

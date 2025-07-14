@@ -9,7 +9,7 @@
       <Field
         type="text"
         name="name"
-        placeholder="Name"
+        :placeholder="$t('admin.name')"
         class="border border-gray-400 outline-none w-full p-2 mb-2 rounded shadow"
       />
       <ErrorMessage name="name" class="text-red-500 text-sm" />
@@ -18,7 +18,7 @@
       <Field
         type="number"
         name="price"
-        placeholder="Price"
+        :placeholder="$t('admin.price')"
         class="border border-gray-400 outline-none w-full p-2 mb-2 rounded shadow"
       />
       <ErrorMessage name="price" class="text-red-500 text-sm" />
@@ -27,7 +27,7 @@
       <Field
         type="url"
         name="image"
-        placeholder="Image URL"
+        :placeholder="$t('admin.url-img')"
         class="border border-gray-400 outline-none w-full p-2 mb-2 rounded shadow"
       />
       <ErrorMessage name="image" class="text-red-500 text-sm" />
@@ -38,9 +38,9 @@
         name="category"
         class="border border-gray-400 outline-none w-full p-2 mb-2 rounded shadow"
       >
-        <option value="">Select Category</option>
+        <option value="">{{$t('admin.select-category')}}</option>
         <option v-for="category in categories" :key="category.id" :value="category.id">
-          {{ category.name }}
+          {{ $t(`categories.${category.name}`) }}
         </option>
       </Field>
       <ErrorMessage name="category" class="text-red-500 text-sm" />
@@ -49,7 +49,7 @@
       <Field
         as="textarea"
         name="description"
-        placeholder="Description"
+        :placeholder="$t('admin.description')"
         class="border border-gray-400 outline-none w-full p-2 mb-2 rounded shadow"
       />
       <ErrorMessage name="description" class="text-red-500 text-sm" />

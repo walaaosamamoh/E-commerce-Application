@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <VeeForm @submit="handleSignUp" :validation-schema="schema">
           <h2 class="text-2xl font-bold mb-4">Sign Up</h2>
@@ -76,4 +76,4 @@ import {doc, setDoc} from 'firebase/firestore';
       }
     },
   }
-</script>
+</script> -->

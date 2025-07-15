@@ -34,6 +34,7 @@
               <img
                 :src="product.image"
                 :alt="product.name"
+                loading="lazy"
                 class="w-full h-48 object-cover mb-4"
               />
               <div class="font-semibold">{{ product.name }}</div>

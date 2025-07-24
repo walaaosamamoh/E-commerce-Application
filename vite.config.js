@@ -24,11 +24,12 @@ export default defineConfig({
           {
             src: 'BlueCart_512x512.png',
             sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
+            type: 'image/png',
+          },
+        ],
       },
       workbox: {
+        exclude: ['firebase-messaging-sw.js'],
         navigateFallback: 'offline.html',
         globPatterns: ['**/*.{js,css,html,png,svg}'],
         runtimeCaching: [
@@ -41,16 +42,17 @@ export default defineConfig({
             handler: 'CacheFirst',
           },
           {
-            urlPattern: ({ request }) => request.destination === 'script' || request.destination === 'style',
+            urlPattern: ({ request }) =>
+              request.destination === 'script' || request.destination === 'style',
             handler: 'StaleWhileRevalidate',
-          }
-        ]
-      }
-    })
+          },
+        ],
+      },
+    }),
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
 })

@@ -21,7 +21,7 @@ import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 import {useToast} from 'vue-toastification'
 import {createUserWithEmailAndPassword} from 'firebase/auth';
-import {auth, db} from '../firebase'; 
+import {auth, db} from '../firebase.js'; 
 import {doc, setDoc} from 'firebase/firestore';
 
   export default {

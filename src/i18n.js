@@ -3,8 +3,8 @@ import en from './locales/en.json';
 import ar from './locales/ar.json';
 
 const i18n = createI18n({
-  locale: 'ar', // set default locale
-  fallbackLocale: 'ar', // fallback locale
+  locale: 'en', // set default locale
+  fallbackLocale: 'en', // fallback locale
   messages :{
     en: en,
     ar: ar
